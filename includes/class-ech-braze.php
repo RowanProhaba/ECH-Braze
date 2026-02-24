@@ -157,6 +157,12 @@ class Ech_Braze {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// ^^^ Add admin menu items
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'braze_admin_menu' );
+		// ^^^ Register our plugin settings
+		$this->loader->add_action('admin_init', $plugin_admin, 'reg_braze_general_settings');
+
+
 	}
 
 	/**
@@ -172,6 +178,12 @@ class Ech_Braze {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		// ^^^ initialize Braze SDK
+		$this->loader->add_action( 'wp_head', $plugin_public, 'initialize_Braze_SDK' );
+
+		// ^^^ add Braze tracking script
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'braze_tracking_script' );
 
 	}
 

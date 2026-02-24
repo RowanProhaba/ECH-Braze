@@ -1,32 +1,30 @@
 (function( $ ) {
 	'use strict';
+	$(function(){
+		/************* GENERAL FORM **************/
+		$('#braze_gen_settings_form').on('submit', function(e){
+			e.preventDefault();
+			console.log(1);
+			$('.statusMsg').removeClass('error');
+			$('.statusMsg').removeClass('updated');
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+			var statusMsg = '';
+			var validStatus = true;
 
+			// set error status msg
+			if ( !validStatus ) {
+				$('.statusMsg').html(statusMsg);
+				$('.statusMsg').addClass('error');
+				return;
+			} else {
+				$('#braze_gen_settings_form').attr('action', 'options.php');
+				$('#braze_gen_settings_form')[0].submit();
+				// output success msg
+				statusMsg += 'Settings updated <br>';
+				$('.statusMsg').html(statusMsg);
+				$('.statusMsg').addClass('updated');
+			}
+		});
+		/************* (END) GENERAL FORM **************/
+	}); // document ready
 })( jQuery );

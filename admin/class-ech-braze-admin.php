@@ -60,20 +60,9 @@ class Ech_Braze_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ech_Braze_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ech_Braze_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ech-braze-admin.css', array(), $this->version, 'all' );
+		if ( (isset($_GET['page']) && $_GET['page'] == 'ech_braze_general_settings')) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ech-braze-admin.css', array(), $this->version, 'all' );
+		}
 
 	}
 
@@ -83,21 +72,36 @@ class Ech_Braze_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+		if ( (isset($_GET['page']) && $_GET['page'] == 'ech_braze_general_settings')) {
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ech-braze-admin.js', array( 'jquery' ), $this->version, false );
+		}
+
+	}
 
 		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ech_Braze_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ech_Braze_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+	 * ^^^ Add Plugin Admin menu
+	 *
+	 * @since    1.0.0
+	 */
+	public function braze_admin_menu() {
+		add_menu_page( 'ECH Braze Plugin Settings', 'ECH Braze', 'manage_options', 'ech_braze_general_settings', array($this, 'braze_admin_page'), 'dashicons-buddicons-tracking', 110 );
+	}
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ech-braze-admin.js', array( 'jquery' ), $this->version, false );
+	// return views
+	public function braze_admin_page() {
+		require_once ('partials/ech-braze-admin-display.php');
+	}
 
+	/**
+	 * ^^^ Register custom fields for plugin settings
+	 *
+	 * @since    1.0.0
+	 */
+	public function reg_braze_general_settings() {
+		// Register all settings for general setting page
+		register_setting( 'braze_gen_settings', 'ech_braze_api_key');
+		register_setting( 'braze_gen_settings', 'ech_braze_base_url');
+		register_setting( 'braze_gen_settings', 'ech_braze_website_brand_name');
 	}
 
 }
