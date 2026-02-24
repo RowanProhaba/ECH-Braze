@@ -7,6 +7,6 @@ After activating the plugin, navigate to ECH Braze in your WordPress dashboard t
 
 Braze API Key: Your Web SDK API Identifier.
 
-Braze Base URL: The SDK endpoint for your cluster (e.g., sdk.braze.com or sdk.braze.eu).
+Braze Base URL: The SDK endpoint for your cluster (e.g., sdk.braze.com).
 
 Business Name: The identifier for the current site (e.g., DR REBORN).
